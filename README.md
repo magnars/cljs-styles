@@ -51,7 +51,7 @@ need prefixing.
 
 Please note! It passes only `:webkit`, since that's my usecase right now.
 
-## Limitations
+## Limitations and laziness
 
 - there's no runtime check of what prefixes to add, since I'm using this on both
   the server and client. You can check the browser and pass in a suitable set of
@@ -59,6 +59,12 @@ Please note! It passes only `:webkit`, since that's my usecase right now.
 
 - I haven't added support for `calc`, since it's a hassle to fix and also best
   avoided due to bad performance in the browser.
+
+- Some values need prefixing, like `cursor: -webkit-zoom-in;`.
+  [React doesn't support these very well](https://github.com/facebook/react/issues/2020),
+  and I haven't investigated all values that need this. I've added the hack from
+  the previous link for `display: flex`, since I need that. Notice a trend? It's
+  version 0.1 indeed.
 
 ## License
 

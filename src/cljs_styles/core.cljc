@@ -17,7 +17,7 @@
 (def default-prefixes-to-use
   #{:ms :webkit :moz :o})
 
-(def needed-prefixes
+(def prop-needing-prefix
   {:alignContent             #{:webkit}
    :alignItems               #{:webkit}
    :alignSelf                #{:webkit}
@@ -39,7 +39,6 @@
    :boxSizing                #{:webkit :moz}
    :clipPath                 #{:webkit}
    :columns                  #{:webkit :moz}
-   :cursor                   #{:webkit :moz}
    :flex                     #{:webkit :ms}
    :flexBasis                #{:webkit :ms}
    :flexDirection            #{:webkit :ms}
@@ -100,7 +99,7 @@
 (defn maybe-prefix-style [style prefixes-to-use]
   (if (= style [:display "flex"])
     (special-case-for-display-flex prefixes-to-use)
-    (conj (when-let [prefixes (needed-prefixes (first style))]
+    (conj (when-let [prefixes (prop-needing-prefix (first style))]
             (map #(prefix-style % style) (set/intersection prefixes prefixes-to-use)))
           style)))
 
@@ -121,7 +120,7 @@
 
 (defmacro styles [& ss]
   (let [m (map-keys camelize-kw (apply hash-map ss))]
-    (if (some needed-prefixes (keys m))
+    (if (some prop-needing-prefix (keys m))
       `(prefix ~m #{:webkit})
       m)))
 
