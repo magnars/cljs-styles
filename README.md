@@ -7,7 +7,7 @@ maps with their React.
 
 ## Install
 
-Add `[cljs-styles "0.1.1"]` to `:dependencies` in your `project.clj`.
+Add `[cljs-styles "0.2.0"]` to `:dependencies` in your `project.clj`.
 
 This is truly a zero-point release. I don't know how, if or when this API will
 change. Use with care, open an issue with any questions.
@@ -64,7 +64,7 @@ Please note! It passes only `:webkit`, since that's my usecase right now.
   [React doesn't support these very well](https://github.com/facebook/react/issues/2020),
   and I haven't investigated all values that need this. I've added the hack from
   the previous link for `display: flex`, since I need that. Notice a trend? It's
-  version 0.1 indeed.
+  version 0.x indeed.
 
 ## Keyframes
 
