@@ -9,7 +9,7 @@ maps with their React.
 
 Add `[cljs-styles "0.1.1"]` to `:dependencies` in your `project.clj`.
 
-This is truly a point-zero release. I don't know how, if or when this API will
+This is truly a zero-point release. I don't know how, if or when this API will
 change. Use with care, open an issue with any questions.
 
 ## Usage
@@ -65,6 +65,40 @@ Please note! It passes only `:webkit`, since that's my usecase right now.
   and I haven't investigated all values that need this. I've added the hack from
   the previous link for `display: flex`, since I need that. Notice a trend? It's
   version 0.1 indeed.
+
+## Keyframes
+
+There's also support for creating and prefixing keyframes for CSS animations.
+
+```clojure
+(use 'cljs-styles.keyframes)
+
+(render-keyframes
+  "fade-in"
+  [[  0 "opacity 0;"]
+   [100 "opacity 1;"]])
+
+;; => @-webkit-keyframes fade-in {0% {opacity 0;} 100% {opacity 1;}}
+;;    @keyframes fade-in {0% {opacity 0;} 100% {opacity 1;}}
+```
+
+There's even a handy macro `defanim` that creates stylesheets dynamically:
+
+```clojure
+(defanim half-rotate
+    [  0 "transform: rotate(0);"]
+    [100 "transform: rotate(180);"])
+
+;; used like this
+
+(d/div {:style {:animation-name half-rotate}})
+```
+
+This will create a `style` tag and populate it with the keyframe rules. The name
+(`half-rotate` here) resolves to the name of the animation.
+
+This macro cannot be used on the server at the moment. I'm planning to do
+something about that.
 
 ## License
 
