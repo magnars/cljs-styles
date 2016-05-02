@@ -7,7 +7,7 @@ maps with their React.
 
 ## Install
 
-Add `[cljs-styles "0.2.0"]` to `:dependencies` in your `project.clj`.
+Add `[cljs-styles "0.3.0"]` to `:dependencies` in your `project.clj`.
 
 This is truly a zero-point release. I don't know how, if or when this API will
 change. Use with care, open an issue with any questions.
