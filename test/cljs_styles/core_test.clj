@@ -36,16 +36,20 @@
 
 ;; warn when using display: flex and cursor: zoom-in
 
+(defmacro with-err-str [& body]
+  `(let [s# (new java.io.StringWriter)]
+     (binding [*err* s#] ~@body (str s#))))
+
 (expect "WARNING: Setting display to flex requires prefixing of the value, which is not supported by React. See http://bit.ly/1pWz70E\n"
-        (with-out-str
+        (with-err-str
           (styles/prefix {:display "flex"})))
 
 (expect {:display "flex"}
-        (binding [*out* (new java.io.StringWriter)] ;; silencio
+        (binding [*err* (new java.io.StringWriter)] ;; silencio
           (styles/prefix {:display "flex"})))
 
 (expect "WARNING: Setting cursor to zoom-in requires prefixing of the value, which is not supported by React. See http://bit.ly/1pWz70E\n"
-        (with-out-str
+        (with-err-str
           (styles/prefix {:cursor "zoom-in"})))
 
 ;; adds convenience `styles` macro. It passes only `:webkit`, since that's my usecase.
