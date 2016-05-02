@@ -83,7 +83,8 @@
      value)])
 
 (defn warn [& ss]
-  (binding [*out* *err*]
+  (binding #?(:clj [*out* *err*]
+              :cljs [*print-fn* *print-err-fn*])
     (println "WARNING:" (apply str ss))))
 
 (defn maybe-prefix-style [style prefixes-to-use]
