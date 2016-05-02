@@ -34,14 +34,19 @@
         (styles/prefix {:transition "transform 200ms ease-in"}
                        #{:webkit}))
 
-;; adds variations of display flex
+;; warn when using display: flex and cursor: zoom-in
 
-(expect {:display "flex;display:-webkit-flex;display:-ms-flexbox"}
-        (styles/prefix {:display "flex"}))
+(expect "WARNING: Setting display to flex requires prefixing of the value, which is not supported by React. See http://bit.ly/1pWz70E\n"
+        (with-out-str
+          (styles/prefix {:display "flex"})))
 
-(expect {:display "flex;display:-webkit-flex"}
-        (styles/prefix {:display "flex"}
-                       #{:webkit}))
+(expect {:display "flex"}
+        (binding [*out* (new java.io.StringWriter)] ;; silencio
+          (styles/prefix {:display "flex"})))
+
+(expect "WARNING: Setting cursor to zoom-in requires prefixing of the value, which is not supported by React. See http://bit.ly/1pWz70E\n"
+        (with-out-str
+          (styles/prefix {:cursor "zoom-in"})))
 
 ;; adds convenience `styles` macro, which lets you use
 ;; non-camel cased css names. It passes only `:webkit`, since that's

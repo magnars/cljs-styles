@@ -91,17 +91,14 @@
      :transition (prefix-transition-value prefix value)
      value)])
 
-(defn special-case-for-display-flex [prefixes-to-use]
-  [[:display (str "flex"
-                  (when (prefixes-to-use :webkit) ";display:-webkit-flex")
-                  (when (prefixes-to-use :ms) ";display:-ms-flexbox"))]])
-
 (defn maybe-prefix-style [style prefixes-to-use]
-  (if (= style [:display "flex"])
-    (special-case-for-display-flex prefixes-to-use)
-    (conj (when-let [prefixes (prop-needing-prefix (first style))]
-            (map #(prefix-style % style) (set/intersection prefixes prefixes-to-use)))
-          style)))
+  (when (#{[:display "flex"]
+           [:cursor "zoom-in"]} style)
+    (println "WARNING: Setting" (name (first style)) "to" (second style)
+             "requires prefixing of the value, which is not supported by React. See http://bit.ly/1pWz70E"))
+  (conj (when-let [prefixes (prop-needing-prefix (first style))]
+          (map #(prefix-style % style) (set/intersection prefixes prefixes-to-use)))
+        style))
 
 (defn prefix [styles & [prefixes-to-use]]
   (->> styles

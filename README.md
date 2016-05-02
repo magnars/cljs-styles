@@ -60,11 +60,13 @@ Please note! It passes only `:webkit`, since that's my usecase right now.
 - I haven't added support for `calc`, since it's a hassle to fix and also best
   avoided due to bad performance in the browser.
 
-- Some values need prefixing, like `cursor: -webkit-zoom-in;`.
-  [React doesn't support these very well](https://github.com/facebook/react/issues/2020),
-  and I haven't investigated all values that need this. I've added the hack from
-  the previous link for `display: flex`, since I need that. Notice a trend? It's
-  version 0.x indeed.
+- Some values need prefixing. Most notably `display: flex`, but also `cursor: zoom-in;`.
+  [Old versions of React didn't support these very well](https://github.com/facebook/react/issues/2020),
+  and after React 15, not at all.
+
+  I have removed the broken half-support of this feature, and now emit a warning
+  when setting these values. My best idea at the time is to use a plain old css
+  rule + class name for this edge case.
 
 ## Keyframes
 
