@@ -70,15 +70,6 @@
 (def needs-transition-transform-prefix?
   #{:webkit :moz :ms})
 
-(defn ^String capitalize
-  "Converts first character of the string to upper-case."
-  [^CharSequence s]
-  (let [s (.toString s)]
-    (if (< (count s) 2)
-      (.toUpperCase s)
-      (str (.toUpperCase (subs s 0 1))
-           (subs s 1)))))
-
 (defn prefix-transition-value [prefix value]
   (if (needs-transition-transform-prefix? prefix)
     (str/replace value #"\btransform\b" (str (val-prefixes prefix) "transform"))
@@ -86,7 +77,7 @@
 
 (defn prefix-style [prefix [prop value]]
   [(keyword (str (prop-prefixes prefix)
-                 (capitalize (name prop))))
+                 (str/capitalize (name prop))))
    (case prop
      :transition (prefix-transition-value prefix value)
      value)])
@@ -109,14 +100,11 @@
   (let [[head & tail] (str/split s #"-")]
     (str/join (conj (map str/capitalize tail) head))))
 
-(defn camelize-kw [kw]
-  (keyword (camelize (name kw))))
-
-(defn map-keys [f m]
-  (zipmap (map f (keys m)) (vals m)))
-
 (defmacro styles [& ss]
-  (let [m (map-keys camelize-kw (apply hash-map ss))]
+  (let [m (apply hash-map ss)]
+    (doseq [k (keys m)]
+      (when (-> k name (.indexOf "-") (>= 0))
+        (println (str "WARNING: Use camelCase for styles. Got `" k "` which should be `:" (camelize (name k)) "`."))))
     (if (some prop-needing-prefix (keys m))
       `(prefix ~m #{:webkit})
       m)))

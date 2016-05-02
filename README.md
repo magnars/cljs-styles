@@ -35,13 +35,12 @@ Optionally list what prefixes to include:
 ;;     :transition "all"}
 ```
 
-There's also a convenience `styles` macro, which lets you use non-camel cased
-css names. It also only wraps the map in a `prefix` call if any of the keys
-need prefixing.
+There's also a convenience `styles` macro. It wraps the map in a `prefix` call
+only if any of the keys need prefixing.
 
 ```clojure
 (styles/styles
- :background-color "#fff"
+ :backgroundColor "#fff"
  :transition "all")
 
 ;; => {:backgroundColor "#fff"
@@ -93,7 +92,7 @@ There's even a handy macro `defanim` that creates stylesheets dynamically:
 
 ;; used like this
 
-(d/div {:style {:animation-name half-rotate}})
+(d/div {:style {:animationName half-rotate}})
 ```
 
 This will create a `style` tag and populate it with the keyframe rules. The name

@@ -48,17 +48,11 @@
         (with-out-str
           (styles/prefix {:cursor "zoom-in"})))
 
-;; adds convenience `styles` macro, which lets you use
-;; non-camel cased css names. It passes only `:webkit`, since that's
-;; my usecase.
+;; adds convenience `styles` macro. It passes only `:webkit`, since that's my usecase.
 
 (expect {:backgroundColor "#fff"
          :WebkitTransition "all"
          :transition "all"}
         (styles/styles
-         :background-color "#fff"
+         :backgroundColor "#fff"
          :transition "all"))
-
-(styles/styles
- :background-color "#fff"
- :transition "all")
