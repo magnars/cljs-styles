@@ -24,10 +24,11 @@
     `(def ~name (do
                   (when-let [elem# (.getElementById js/document ~id)]
                     (.removeChild (.-parentNode elem#) elem#))
-                  (let [sheet# (.createElement js/document "style")]
-                    (set! (.-id sheet#) ~id)
-                    (set! (.-innerHTML sheet#) ~(render-keyframes id frames))
-                    (.appendChild (.-body js/document) sheet#))
+                  (when (.-body js/document)
+                    (let [sheet# (.createElement js/document "style")]
+                      (set! (.-id sheet#) ~id)
+                      (set! (.-innerHTML sheet#) ~(render-keyframes id frames))
+                      (.appendChild (.-body js/document) sheet#)))
                   ~id))))
 
 (comment ;; used like this from cljs
