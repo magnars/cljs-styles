@@ -20,6 +20,14 @@
          :appearance "none"}
         (styles/prefix {:appearance "none"}))
 
+;; doesn't mess up multiword properties
+
+(expect {:boxShadow "0 0 20px 0px rgba(0,0,0,0.3)"
+         :WebkitBoxShadow "0 0 20px 0px rgba(0,0,0,0.3)"
+         :MozBoxShadow "0 0 20px 0px rgba(0,0,0,0.3)"
+         :msBoxShadow "0 0 20px 0px rgba(0,0,0,0.3)"}
+        (styles/prefix {:boxShadow "0 0 20px 0px rgba(0,0,0,0.3)"}))
+
 ;; optionally list what prefixes to include
 
 (expect {:WebkitTransition "all"

@@ -75,9 +75,13 @@
     (str/replace value #"\btransform\b" (str (val-prefixes prefix) "transform"))
     value))
 
+(defn capitalize [s]
+  (str (str/capitalize (subs s 0 1))
+       (subs s 1)))
+
 (defn prefix-style [prefix [prop value]]
   [(keyword (str (prop-prefixes prefix)
-                 (str/capitalize (name prop))))
+                 (capitalize (name prop))))
    (case prop
      :transition (prefix-transition-value prefix value)
      value)])
