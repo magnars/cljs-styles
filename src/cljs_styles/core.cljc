@@ -39,6 +39,7 @@
    :boxSizing                #{:webkit :moz}
    :clipPath                 #{:webkit}
    :columns                  #{:webkit :moz}
+   :filter                   #{:webkit}
    :flex                     #{:webkit :ms}
    :flexBasis                #{:webkit :ms}
    :flexDirection            #{:webkit :ms}
