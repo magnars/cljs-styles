@@ -97,9 +97,10 @@
            [:cursor "zoom-in"]} style)
     (warn "Setting " (name (first style)) " to " (second style)
           " requires prefixing of the value, which is not supported by React. See http://bit.ly/1pWz70E"))
-  (conj (when-let [prefixes (prop-needing-prefix (first style))]
-          (map #(prefix-style % style) (set/intersection prefixes prefixes-to-use)))
-        style))
+  (when-not (nil? (second style))
+    (conj (when-let [prefixes (prop-needing-prefix (first style))]
+            (map #(prefix-style % style) (set/intersection prefixes prefixes-to-use)))
+          style)))
 
 (defn prefix [styles & [prefixes-to-use]]
   (->> styles

@@ -20,6 +20,11 @@
          :appearance "none"}
         (styles/prefix {:appearance "none"}))
 
+;; allows nils
+
+(expect {} (styles/prefix {:transition nil}))
+(expect {:color "red"} (styles/prefix {:color "red" :transition nil}))
+
 ;; doesn't mess up multiword properties
 
 (expect {:boxShadow "0 0 20px 0px rgba(0,0,0,0.3)"
