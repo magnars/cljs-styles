@@ -27,7 +27,7 @@
                   (when (.-body js/document)
                     (let [sheet# (.createElement js/document "style")]
                       (set! (.-id sheet#) ~id)
-                      (set! (.-innerHTML sheet#) ~(render-keyframes id frames))
+                      (set! (.-innerHTML sheet#) (render-keyframes id ~(vec frames)))
                       (.appendChild (.-body js/document) sheet#)))
                   ~id))))
 
