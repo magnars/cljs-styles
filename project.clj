@@ -1,4 +1,4 @@
-(defproject cljs-styles "0.3.6"
+(defproject cljs-styles "0.3.7"
   :description "Vendor prefixes for React inline styles with ClojureScript"
   :url "https://github.com/magnars/cljs-styles"
   :license {:name "Eclipse Public License"
