@@ -20,7 +20,7 @@
   (str/replace s #"[^a-zA-Z]+" "-"))
 
 (defmacro defanim [name & frames]
-  (let [id (str "keyframe--" (sanitize-chars *ns*) "--" (sanitize-chars name))]
+  (let [id (str "keyframe--" (sanitize-chars (or *ns* "unknown-ns")) "--" (sanitize-chars name))]
     `(def ~name (do
                   (when-let [elem# (.getElementById js/document ~id)]
                     (.removeChild (.-parentNode elem#) elem#))
