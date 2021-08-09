@@ -93,10 +93,6 @@
     (println "WARNING:" (apply str ss))))
 
 (defn maybe-prefix-style [style prefixes-to-use]
-  (when (#{[:display "flex"]
-           [:cursor "zoom-in"]} style)
-    (warn "Setting " (name (first style)) " to " (second style)
-          " requires prefixing of the value, which is not supported by React. See http://bit.ly/1pWz70E"))
   (when-not (nil? (second style))
     (conj (when-let [prefixes (prop-needing-prefix (first style))]
             (map #(prefix-style % style) (set/intersection prefixes prefixes-to-use)))
